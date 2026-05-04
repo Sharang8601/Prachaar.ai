@@ -1,16 +1,37 @@
-# React + Vite
+# BroadcastWA Pro
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React MVP prototype for a WhatsApp campaign tool for Indian small businesses.
 
-Currently, two official plugins are available:
+## What is built
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Brand setup: business name, type, city, phone, logo, and social handles.
+- WhatsApp API setup: customer can choose Meta Cloud API, WATI, AiSensy, or a custom BSP adapter.
+- Contact loading: paste numbers or upload CSV/TXT/XLSX; numbers are normalized, deduplicated, and counted.
+- Poster workflow: generate a branded poster draft in-browser or upload a manual poster.
+- Message workflow: offer, festival, promo, membership, and custom templates with English/Hindi/bilingual copy.
+- Hindi UI toggle, dark/light mode, festival campaign ideas, preview, payload preview, and simulated live send progress.
 
-## React Compiler
+## API strategy
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Yes, a customer can bring their existing WhatsApp API route. The app should store a provider type and credentials, then the backend sends through a provider adapter:
 
-## Expanding the ESLint configuration
+- `Meta Cloud API`: access token, phone number ID, approved template name.
+- `WATI`: API endpoint, bearer token, template name, channel number.
+- `AiSensy`: API key, live API campaign name, source.
+- `Interakt / Other BSP`: custom endpoint, token, template name.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Production note: never store these tokens in plain text. Encrypt at rest, proxy every send through the backend, and only send opt-in contacts with approved WhatsApp templates.
+
+## Local development
+
+```bash
+npm install
+npm run dev
+```
+
+## Verification
+
+```bash
+npm run lint
+npm run build
+```
